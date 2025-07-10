@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hridoy Tudu</title>
+  <style>
+    :root {
+      --bg-color: #f0f2f5;
+      --text-color: #000;
+      --card-bg: #fff;
+      --header-bg: linear-gradient(90deg, #007bff, #00c6ff);
+      --button-bg: linear-gradient(45deg, #007bff, #00c6ff);
+    }
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #fff;
+      --card-bg: #1e1e1e;
+      --header-bg: linear-gradient(90deg, #333, #555);
+      --button-bg: linear-gradient(45deg, #444, #777);
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding-bottom: 80px;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background: var(--header-bg);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      position: relative;
+    }
+    .toggle-mode {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 14px;
+      background: #fff3;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: var(--button-bg);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.02); }
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      display: flex;
+      justify-content: space-around;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+    nav button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: none;
+      font-weight: bold;
+      color: var(--text-color);
+      font-size: 16px;
+    }
+    .info {
+      font-weight: bold;
+      color: green;
+      margin-top: 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body><header>
+  📲 Monetag Bot | Developer: Hridoy Tudu
+  <span class="toggle-mode" onclick="toggleDarkMode()">🌙 Mode</span>
+</header><div class="container">
+  <div id="home" class="section active">
+    <div class="card">
+      <h3>🏠 Dashboard</h3>
+      <p>Balance: <strong id="balance">$0.000</strong></p>
+      <p>Ads Watched: <strong id="adsWatched">0</strong></p>
+      <p>Tasks Completed: <strong id="tasksCompleted">0</strong></p>
+    </div>
+  </div>  <div id="earn" class="section">
+    <div class="card">
+      <h3>▶️ Watch Ads</h3>
+      <button class="btn" onclick="watchAd()">Watch Ad & Earn</button>
+      <p class="info" id="ad-status">Click the button to watch ad</p>
+    </div>
+    <div class="card">
+      <h3>📝 Tasks</h3>
+      <button class="btn" onclick="taskWithRedirect('https://t.me/Hridoy_Skill')">✅ Join Telegram</button>
+      <button class="btn" onclick="taskWithRedirect('https://youtube.com/@hridoy_skill_0.69?si=GfXezqZBlqsXYWVc')">📺 Subscribe YouTube</button>
+      <button class="btn" onclick="taskWithRedirect('https://facebook.com')">📘 Like Facebook Page</button>
+      <button class="btn" onclick="taskWithRedirect('https://instagram.com')">📷 Follow Instagram</button>
+      <button class="btn" onclick="taskWithRedirect('https://example.com/share')">📤 Share Post</button>
+    </div>
+  </div>  <div id="withdraw" class="section">
+    <div class="card">
+      <h3>💸 Withdraw</h3>
+      <input id="withdrawAmount" type="text" placeholder="Enter Amount">
+      <input id="withdrawMethod" type="text" placeholder="Payment Method or Account">
+      <button class="btn" onclick="submitWithdraw()">Submit Request</button>
+    </div>
+  </div>  <div id="contact" class="section">
+    <div class="card">
+      <h3>📞 Contact</h3>
+      <button class="btn" onclick="window.open('https://t.me/your_admin_bot')">Chat with Admin</button>
+      <button class="btn" onclick="window.open('https://t.me/your_owner_username')">Contact Owner</button>
+      <button class="btn" onclick="window.open('https://youtube.com/@hridoy_skill_0.69?si=GfXezqZBlqsXYWVc')">📹 Watch Help Video</button>
+    </div>
+  </div>  <div id="profile" class="section">
+    <div class="card">
+      <h3>👤 Profile</h3>
+      <p>Total Ads: <strong id="adsWatchedProfile">0</strong></p>
+      <p>Total Tasks: <strong id="tasksCompletedProfile">0</strong></p>
+      <p>Total Withdraw: <strong id="withdrawTotal">$0.00</strong></p>
+      <p style="margin-top:10px;color:#888;">Developer: Hridoy Tudu</p>
+    </div>
+  </div>
+</div><nav>
+  <button onclick="showTab('home')">🏠 Home</button>
+  <button onclick="showTab('earn')">💰 Earn</button>
+  <button onclick="showTab('withdraw')">💸 Withdraw</button>
+  <button onclick="showTab('contact')">📞 Contact</button>
+  <button onclick="showTab('profile')">👤 Profile</button>
+</nav><script src="//libtl.com/sdk.js" data-zone="9506403" data-sdk="show_9506403"></script><script>
+  let balance = parseFloat(localStorage.getItem('balance')) || 0.000;
+  let adsWatched = parseInt(localStorage.getItem('adsWatched')) || 0;
+  let tasksCompleted = parseInt(localStorage.getItem('tasksCompleted')) || 0;
+  let totalWithdraw = parseFloat(localStorage.getItem('totalWithdraw')) || 0.000;
+
+  function showTab(tabId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  function watchAd() {
+    const status = document.getElementById("ad-status");
+    if (typeof show_9506403 === "function") {
+      show_9506403();
+    } else {
+      alert("⚠️ Ads not loaded. Please refresh.");
+      return;
+    }
+
+    let sec = 15;
+    status.innerText = `⏳ Please watch... ${sec}s`;
+    let timer = setInterval(() => {
+      sec--;
+      if (sec > 0) {
+        status.innerText = `⏳ Please watch... ${sec}s`;
+      } else {
+        clearInterval(timer);
+        balance += 0.005;
+        adsWatched++;
+        updateStats();
+        status.innerText = `✅ Earned $0.005!`;
+      }
+    }, 1000);
+  }
+
+  function taskWithRedirect(url) {
+    window.open(url);
+    let wait = 15;
+    let countdown = setInterval(() => {
+      wait--;
+      if (wait <= 0) {
+        clearInterval(countdown);
+        balance += 0.005;
+        tasksCompleted++;
+        updateStats();
+        alert("✅ Task complete. $0.005 added to balance.");
+      }
+    }, 1000);
+  }
+
+  function updateStats() {
+    document.getElementById("balance").innerText = `$${balance.toFixed(3)}`;
+    document.getElementById("adsWatched").innerText = adsWatched;
+    document.getElementById("adsWatchedProfile").innerText = adsWatched;
+    document.getElementById("tasksCompleted").innerText = tasksCompleted;
+    document.getElementById("tasksCompletedProfile").innerText = tasksCompleted;
+    document.getElementById("withdrawTotal").innerText = `$${totalWithdraw.toFixed(3)}`;
+    localStorage.setItem('balance', balance);
+    localStorage.setItem('adsWatched', adsWatched);
+    localStorage.setItem('tasksCompleted', tasksCompleted);
+    localStorage.setItem('totalWithdraw', totalWithdraw);
+  }
+
+  function submitWithdraw() {
+    const amount = parseFloat(document.getElementById("withdrawAmount").value);
+    const method = document.getElementById("withdrawMethod").value;
+    if (!amount || !method || amount > balance) return alert("❌ Fill all fields or check balance");
+
+    const telegramBotURL = `https://api.telegram.org/bot7310981934:AAE05Bo05CBLadaTWPgZg79fgvHsPuW9s8I/sendMessage`;
+    const chatId = "5965219037";
+    const message = `📤 New Withdraw Request:\nAmount: $${amount}\nMethod: ${method}\nBalance Before: $${balance.toFixed(3)}`;
+
+    fetch(telegramBotURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text: message })
+    });
+
+    balance = 0;
+    totalWithdraw += amount;
+    updateStats();
+    alert("✅ Withdraw request sent. Balance reset.");
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+
+  window.onload = updateStats;
+</script></body>
+</html>
